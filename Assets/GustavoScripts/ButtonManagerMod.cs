@@ -45,6 +45,11 @@ public class ButtonManagerMod : MonoBehaviour
         SceneManager.LoadScene("GameTest");
     }
 
+    public void Lobby()
+    {
+        SceneManager.LoadScene("Lobby");
+    }
+
     public void SingleGame()
     {
         SceneManager.LoadScene("GameTest");

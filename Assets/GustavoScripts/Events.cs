@@ -15,6 +15,7 @@ using System.Text;
 public class Events : MonoBehaviour
 {
     public Networking networkBehaviour;
+    public ButtonManagerMod buttonManagerMod;
     public ServerSettings serverSettings;
     public ConectionStatus conectionStatus;
 
@@ -35,6 +36,7 @@ public class Events : MonoBehaviour
     {
         networkBehaviour = FindObjectOfType<Networking>();
         serverSettings = GameObject.Find("ServerSettings").GetComponent<ServerSettings>();
+        buttonManagerMod = FindObjectOfType<ButtonManagerMod>();
         networkBehaviour.IP = serverSettings.GetIP(); // Server IP address
         networkBehaviour.PORT = serverSettings.GetPort(); // Server port
         conectionStatus = FindObjectOfType<ConectionStatus>();
@@ -77,6 +79,7 @@ public class Events : MonoBehaviour
                     searchingRoom = false;
                     conectionStatus.playerIsWaiting = false;
                     Debug.Log("Room created and players paired...");
+                    buttonManagerMod.MultiplayerGame();
                 break;
 
                 case "MESSAGE_FROM_SERVER_1":
