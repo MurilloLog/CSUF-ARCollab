@@ -54,4 +54,9 @@ public class Networking : MonoBehaviour
             Debug.Log("Exception Message: " + ex.Message);
         }
     }
+
+    public void close()
+    {
+        client.Close();
+    }
 }
