@@ -29,7 +29,9 @@ public class WhackAMole : MonoBehaviour
     public Slider timeSlide;
     public Text question;
     public Text scoreText;
+    public Text collabScoreText;
     public int scoreNum;
+    public int collabScoreNum;
     public int question_index;
 
     private void Start()
@@ -38,8 +40,8 @@ public class WhackAMole : MonoBehaviour
         questions_answers = new Dictionary<string, string>()
         {
             {"What layer is 1.400 miles thick?", "Outer Core" },
-            {"What layer is 9,000° F?" , "Outer Core"},
-            {"What layer is 9,800° F?" ,"Inner Core"},
+            {"What layer is 9,000ï¿½ F?" , "Outer Core"},
+            {"What layer is 9,800ï¿½ F?" ,"Inner Core"},
             {"Which layer is sandwhiched between the crust and outer core?", "Mantle"},
             {"Which layer is the thickest?","Mantle"},
             {"What layer goes about 19 miles deep on average?","Crust"},
@@ -56,7 +58,9 @@ public class WhackAMole : MonoBehaviour
 
         //keeping track of the score
         scoreNum = 0;
-        scoreText.text = $"Score: {scoreNum}/50";
+        collabScoreNum = 0;
+        scoreText.text = $"Your score: {scoreNum}/50";
+        collabScoreText.text = $"Collab score: {collabScoreNum}/50";
     }
 
     // Update is called once per frame
@@ -71,8 +75,9 @@ public class WhackAMole : MonoBehaviour
         }
 
         SliderUpdate();
-        scoreText.text = "Score: " + scoreNum;
-        if (scoreNum == 50)
+        scoreText.text = "Your score: " + scoreNum;
+        collabScoreText.text = "Collab score: " + collabScoreNum;
+        if ((scoreNum == 50) || (collabScoreNum == 50))
         {
             gameRunning = false;
         }
