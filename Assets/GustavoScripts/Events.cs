@@ -18,6 +18,7 @@ public class Events : MonoBehaviour
     public ButtonManagerMod buttonManagerMod;
     public ServerSettings serverSettings;
     public ConectionStatus conectionStatus;
+    public WhackAMole whackAMole;
 
     public string id = "";  // _id assigned by the server
     public bool readingFromServer = false;
@@ -37,6 +38,7 @@ public class Events : MonoBehaviour
         networkBehaviour = FindObjectOfType<Networking>();
         serverSettings = GameObject.Find("ServerSettings").GetComponent<ServerSettings>();
         buttonManagerMod = FindObjectOfType<ButtonManagerMod>();
+        whackAMole = FindObjectOfType<WhackAMole>();
         networkBehaviour.IP = serverSettings.GetIP(); // Server IP address
         networkBehaviour.PORT = serverSettings.GetPort(); // Server port
         conectionStatus = FindObjectOfType<ConectionStatus>();
