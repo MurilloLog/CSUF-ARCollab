@@ -118,4 +118,14 @@ public class WhackAMole : MonoBehaviour
         }
         return false;
     }
+
+    public string getLocalScore()
+    {
+        return scoreText.text;
+    }
+
+    public void setCollabScore(int args)
+    {
+        collabScoreNum = args;
+    }
 }

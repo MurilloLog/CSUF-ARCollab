@@ -84,8 +84,9 @@ public class Events : MonoBehaviour
                     buttonManagerMod.MultiplayerGame();
                 break;
 
-                case "MESSAGE_FROM_SERVER_1":
-                    Debug.Log("I've received the message 1...");
+                case "UPDATE_SCORE":
+                    Debug.Log("I've received the collab score...");
+                    whackAMole.setCollabScore(JSONPackageReceived.getCollabScoreNum());
                 break;
 
                 case "MESSAGE_FROM_SERVER_2":
