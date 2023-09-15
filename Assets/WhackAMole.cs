@@ -14,6 +14,8 @@ public class WhackAMole : MonoBehaviour
     /// The timer per question should be 10 or 15 seconds? depends on the intervals
     /// </summary>
     // Start is called before the first frame update
+    
+    public Events events;
     private Transform[] answer_postions;
     [SerializeField] GameObject answerHold;
 
@@ -32,7 +34,13 @@ public class WhackAMole : MonoBehaviour
     public Text collabScoreText;
     public int scoreNum;
     public int collabScoreNum;
+    private int previousScoreNum;
     public int question_index;
+
+    void Awake()
+    {
+        events = FindObjectOfType<Events>();
+    }
 
     private void Start()
     {
@@ -59,6 +67,7 @@ public class WhackAMole : MonoBehaviour
         //keeping track of the score
         scoreNum = 0;
         collabScoreNum = 0;
+        previousScoreNum = 0;
         scoreText.text = $"Your score: {scoreNum}/50";
         collabScoreText.text = $"Collab score: {collabScoreNum}/50";
     }
@@ -80,6 +89,19 @@ public class WhackAMole : MonoBehaviour
         if ((scoreNum == 50) || (collabScoreNum == 50))
         {
             gameRunning = false;
+        }
+        else
+        {
+            if(previousScoreNum != scoreNum)
+            {
+                events.updateScore.setCommand("UPDATE_SCORE");
+                events.updateScore.setPlayerID(events.id);
+                events.updateScore.setScore(collabScoreNum);
+                events.JSONPackage = JsonUtility.ToJson(events.updateScore, true);
+                Debug.Log("El Json que se envia es: " + events.JSONPackage);
+                events.sendRoomAction(events.JSONPackage);
+                previousScoreNum = scoreNum;
+            }
         }
     }
 

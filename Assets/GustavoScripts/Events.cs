@@ -19,6 +19,7 @@ public class Events : MonoBehaviour
     public ServerSettings serverSettings;
     public ConectionStatus conectionStatus;
     public WhackAMole whackAMole;
+    public UpdateScore updateScore;
 
     public string id = "";  // _id assigned by the server
     public bool readingFromServer = false;
@@ -85,8 +86,9 @@ public class Events : MonoBehaviour
                 break;
 
                 case "UPDATE_SCORE":
-                    Debug.Log("I've received the collab score...");
+                    Debug.Log("I've received the collab score:");
                     whackAMole.setCollabScore(JSONPackageReceived.getCollabScoreNum());
+                    Debug.Log(JSONPackageReceived.getCollabScoreNum());
                 break;
 
                 case "MESSAGE_FROM_SERVER_2":
