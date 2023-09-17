@@ -5,19 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Marker-AR-Test.unity
     guid: 52377dbc86294cc4e9e3620b2b51d0dc
-  - enabled: 0
+  - enabled: 1
     path: Assets/Arturo Assets/Scenes/Earth Views/Earth Views.unity
     guid: 2fcf9cc661b733e469a47f57cb33d1cb
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Home.unity
     guid: 34f7a555d700e074796909089942d9a9
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/CRoom.unity
     guid: 624d096332bfc4840bad11a73e0f58f4
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Host.unity
     guid: 31ad3d1955a27734fb3b1c16b0a70b6e
   - enabled: 1
