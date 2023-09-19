@@ -59,4 +59,9 @@ public class ButtonManagerMod : MonoBehaviour
     {
         SceneManager.LoadScene("CollabGameTest");
     }
+
+    public void LearningRoom()
+    {
+        SceneManager.LoadScene("Marker-AR-Test");
+    }
 }
