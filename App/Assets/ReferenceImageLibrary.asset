@@ -35,3 +35,13 @@ MonoBehaviour:
     m_SpecifySize: 1
     m_Name: Picture2
     m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4792300733651688331
+      m_GuidHigh: 14562015443495360388
+    m_SerializedTextureGuid:
+      m_GuidLow: 18330797826108551470
+      m_GuidHigh: 6070340216591745768
+    m_Size: {x: 0.008, y: 0.006692811}
+    m_SpecifySize: 1
+    m_Name: Lavira AR
+    m_Texture: {fileID: 0}
