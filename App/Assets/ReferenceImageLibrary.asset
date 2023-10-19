@@ -41,7 +41,7 @@ MonoBehaviour:
     m_SerializedTextureGuid:
       m_GuidLow: 18330797826108551470
       m_GuidHigh: 6070340216591745768
-    m_Size: {x: 0.008, y: 0.006692811}
+    m_Size: {x: 0.01, y: 0.008366013}
     m_SpecifySize: 1
     m_Name: Lavira AR
     m_Texture: {fileID: 0}
