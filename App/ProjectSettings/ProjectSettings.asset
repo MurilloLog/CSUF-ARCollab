@@ -130,9 +130,6 @@ PlayerSettings:
   bundleVersion: 0.2.1
   preloadedAssets:
   - {fileID: 0}
-  - {fileID: 11400000, guid: 1eb95d77acb39444e8cf44313496a874, type: 2}
-  - {fileID: -6541491365902579326, guid: 58f40b12bbc864f3c96c6505a9a1e1e3, type: 2}
-  - {fileID: 4800000, guid: c9f956787b1d945e7b36e0516201fc76, type: 3}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -454,7 +451,7 @@ PlayerSettings:
   enableInternalProfiler: 0
   logObjCUncaughtExceptions: 1
   enableCrashReportAPI: 0
-  cameraUsageDescription: 
+  cameraUsageDescription: It's necesary to use AR
   locationUsageDescription: 
   microphoneUsageDescription: 
   switchNMETAOverride: 
@@ -689,7 +686,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    4: ARCORE_EXTENSIONS_IOS_SUPPORT;CLOUDANCHOR_IOS_SUPPORT
+    4: ARCORE_EXTENSIONS_IOS_SUPPORT;CLOUDANCHOR_IOS_SUPPORT;UNITY_XR_ARKIT_LOADER_ENABLED
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
