@@ -5,6 +5,6 @@ export class mongo
     
     constructor(){
         this.host =  "localhost";
-        this.db = "arEnvironment";
+        this.db = "CSUF";
     }
 }

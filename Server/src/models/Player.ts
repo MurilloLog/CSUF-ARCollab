@@ -20,12 +20,6 @@ class Player {
         z: "Decimal128",
         w: "Decimal128"
     }
-
-    @prop()
-    unixTimestamp: "Decimal128"
-
-    @prop()
-    date: "string"
 }
 
 const PlayerSchema = getModelForClass(Player)
