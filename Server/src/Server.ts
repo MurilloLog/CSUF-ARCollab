@@ -110,7 +110,6 @@ let server = net.createServer(socket =>
                                 {
                                     position: jsonData.position,
                                     rotation: jsonData.rotation,
-                                    unixTimestamp: jsonData.unixTimestamp
                                 },
                                 {new: true});
                                 console.log("Player updated");
