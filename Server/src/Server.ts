@@ -6,6 +6,8 @@ import { mongo } from "./database";
 import Player from "./models/Player";
 import Objects from "./models/Objects";
 
+const USERS_PER_ROOM = 5; // Set number of players for each room
+
 let timer: Timer = new Timer();
 let players: Array<IPlayer> = [];
 let databaseConfig = new mongo();
@@ -31,8 +33,9 @@ let actions =
 
 // Creating rooms
 let roomsOneVsOne: Map<string, OneVsOne> = new Map<string, OneVsOne>();
+let rooms: Map<string, Array<IPlayer>> = new Map<string, Array<IPlayer>>(); // An array<IPlayer>'s room 
 
-// Creating the web server
+// Creating the local server
 let server = net.createServer(socket =>
     {
         const uuid = require('uuid').v4;
@@ -73,11 +76,27 @@ let server = net.createServer(socket =>
                         searchRoom.set(id, {id: id, conexion: socket});
                         playersPaired++;
 
-                        if (playersPaired < 2)
-                            socket.write(Buffer.from(`{"command": "WAITING_PLAYER", "unixTimestamp": ${jsonData.unixTimestamp}}`, "utf-8"));
+                        if (playersPaired < USERS_PER_ROOM)
+                            socket.write(Buffer.from(`{"command": "WAITING_PLAYER"}`, "utf-8"));
                         else
+                        {
+                            let roomPlayers: IPlayer[] = [];
+                            searchRoom.forEach(player => {
+                                roomPlayers.push(player);
+                                if (roomPlayers.length === USERS_PER_ROOM) return;
+                            });
+
+                            const roomId = roomPlayers.map(player => player.id).join('-');
+                            rooms.set(roomId, roomPlayers);
+
+                            roomPlayers.forEach(player => {
+                                player.conexion.write(Buffer.from(`{"command": "ROOM_CREATED", "roomId": "${roomId}"}`, "utf-8"));
+                                searchRoom.delete(player.id);
+                            });
+
                             playersPaired = 0;
-                            playersOffline = 2;
+                            playersOffline += USERS_PER_ROOM;
+                        }
                         break;
 
                     case actions.UPDATE_PLAYER_POSE:
@@ -227,24 +246,29 @@ server.listen(PORT, () =>
 
     let searchTimer: Timer = new Timer(() => 
     {
-        if(searchRoom.size >= 2)
+        if(searchRoom.size >= USERS_PER_ROOM)
         {
-            // List of players
-            //let players: Array<IPlayer> = [];
-            searchRoom.forEach(j => 
+            let roomPlayers: IPlayer[] = []
+            searchRoom.forEach(player => 
             {
-                players.push(j);
+                roomPlayers.push(player);
+                if(roomPlayers.length === USERS_PER_ROOM) 
+                    return;
             });
             
-            players.forEach( (player) => {
-                player.conexion.write(Buffer.from(`{"command": "ROOM_CREATED"}`, "utf-8"));
+            const roomId = roomPlayers.map(player => player.id).join('-');
+            rooms.set(roomId, roomPlayers);
+            
+            roomPlayers.forEach( (player) => {
+                player.conexion.write(Buffer.from(`{"command": "ROOM_CREATED", "roomId": "${roomId}"}`, "utf-8"));
+                searchRoom.delete(player.id);
             });
             
-            roomsOneVsOne.set(players[0].id + players[1].id, new OneVsOne(players[0], players[1]));
+            /*roomsOneVsOne.set(players[0].id + players[1].id, new OneVsOne(players[0], players[1]));
             console.log("Room One vs One created between players ID: " + players[0].id + " and " + players[1].id);
             // Deleting players for search room list
             searchRoom.delete(players[0].id);
-            searchRoom.delete(players[1].id);
+            searchRoom.delete(players[1].id);*/
         }
     });
 });
