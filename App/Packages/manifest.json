@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.google.ar.core.arfoundation.extensions": "https://github.com/google-ar/arcore-unity-extensions.git",
     "com.unity.collab-proxy": "2.0.4",
     "com.unity.ide.rider": "3.0.21",
     "com.unity.ide.visualstudio": "2.0.18",
@@ -14,7 +15,7 @@
     "com.unity.xr.arfoundation": "4.1.13",
     "com.unity.xr.arkit": "4.1.13",
     "com.unity.xr.magicleap": "6.2.2",
-    "com.unity.xr.management": "4.0.7",
+    "com.unity.xr.management": "4.3.3",
     "com.unity.xr.oculus": "1.13.1",
     "com.unity.xr.windowsmr": "4.6.5",
     "com.unity.modules.ai": "1.0.0",

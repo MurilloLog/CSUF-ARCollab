@@ -1,3 +1,3 @@
-77f9507f5150409db69e72dc82ea9115|C:\Users\LaViR\Documents\Git\CSUF-ARCollab\App\Assets\pexels-pixabay-87651.jpg|0.05
-60207a8a0c234aeab7e05b0de8cbd0d4|C:\Users\LaViR\Documents\Git\CSUF-ARCollab\App\Assets\Picture2.png|0.05
-66271b8bac20428184174b9be4ab16ca|C:\Users\LaViR\Documents\Git\CSUF-ARCollab\App\Assets\Resources\GustavoImages\Lavira AR.png|0.01
+77f9507f5150409db69e72dc82ea9115|C:\Users\Gusta\Documents\Git\CSUF-ARCollab\App\Assets\pexels-pixabay-87651.jpg|0.05
+60207a8a0c234aeab7e05b0de8cbd0d4|C:\Users\Gusta\Documents\Git\CSUF-ARCollab\App\Assets\Picture2.png|0.05
+66271b8bac20428184174b9be4ab16ca|C:\Users\Gusta\Documents\Git\CSUF-ARCollab\App\Assets\Resources\GustavoImages\Lavira AR.png|0.01
