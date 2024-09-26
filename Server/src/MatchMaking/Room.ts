@@ -1,5 +1,34 @@
 import {IPlayer} from "../Server";
+import * as net from "net";
 
+export class Room 
+{
+    constructor(private roomId: string, private players: IPlayer[]) { }
+
+    public updateRoomStateOnEvent(data: any, playerIdWhoMadeUpdate: string) {
+        // Aqui se procesa la actualizacion cuando un jugador envia datos o cambia el estado del sistema
+        this.players.forEach(player => {
+            // Enviar actualizaciones a todos los jugadores en la sala excepto al jugador de referencia
+            if (player.id !== playerIdWhoMadeUpdate) {
+                player.conexion.write(Buffer.from(JSON.stringify(data), "utf-8"));
+            }
+        });
+    }
+
+    returnPlayer(playerId: string) {
+        this.players = this.players.filter(player => player.id !== playerId);
+    }
+
+    addPlayer(player: IPlayer) {
+        this.players.push(player);
+    }
+
+    removePlayer(playerId: string) {
+        this.players = this.players.filter(player => player.id !== playerId);
+    }
+}
+
+/* Previous code
 interface RoomConfig
 {
     mode: "1VS1" | "2VS2";
@@ -22,10 +51,10 @@ class Room
     private player2: IPlayer | null = null;
     private players: Map<String, IPlayer> | null = null;
 
-    /**** Constructor for mode OneVsOne ****/
+    /**** Constructor for mode OneVsOne **** /
     constructor(type: {player1:IPlayer; player2:IPlayer});
 
-    /**** Constructor for mode TwoVsTwo ****/
+    /**** Constructor for mode TwoVsTwo **** /
     constructor(type: Map<String, IPlayer>);
 
     constructor(type: |{ player1: IPlayer; player2: IPlayer;} | Map<String, IPlayer>)
@@ -50,4 +79,4 @@ export class OneVsOne extends Room
     {
         super({player1: player1, player2: player2})
     }
-}
+}*/
