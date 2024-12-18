@@ -63,6 +63,8 @@ let server = net.createServer(socket =>
             connected = true;
         });
 
+        socket.setEncoding('utf8');
+
         /**** Process to receive data from any client ****/
         socket.on("data", async data =>
         {
@@ -203,8 +205,8 @@ let server = net.createServer(socket =>
                     case actions.DRAWING:
                         try
                         {
-                            const objects = await Drawings.find({_id: jsonData._id}, {_id: 1})
-                            if(objects.length != 0)
+                            /*const drawings = await Drawings.find({_id: jsonData._id}, {_id: 1})
+                            if(drawings.length != 0)
                             {
                                 console.log("The ID exist in DB");
                                 const drawings = await Drawings.findByIdAndUpdate(jsonData._id, 
@@ -232,7 +234,7 @@ let server = net.createServer(socket =>
                                 await drawings.save();
                                 console.log("Drawing saved");
                                 //console.log(drawings);
-                            }
+                            }*/
                             
                             const currentMsgRoom = rooms.get(jsonData.roomId);
                             if(currentMsgRoom)
@@ -305,7 +307,7 @@ server.listen(PORT, () =>
     });
     console.log("Successful connection.");
     console.log("Server is running on port: " + PORT);
-    console.log("Waiting for players...");
+    console.log("Waiting for connections...");
 
     let searchTimer: Timer = new Timer(() => 
     {
