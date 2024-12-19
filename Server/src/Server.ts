@@ -1,6 +1,7 @@
 import * as net from "net"
 import Timer from "./Utils/Timer"
 import mongoose from "mongoose";
+import crypto from "crypto";
 import { mongo } from "./database";
 import Player from "./models/Player";
 import Objects from "./models/Objects";
@@ -37,11 +38,20 @@ let actions =
 // Creating rooms
 let rooms: Map<string, Room> = new Map<string, Room>(); // An array<IPlayer>'s room 
 
+// Hash ID Generator
+function generateId(remoteAddress: string): string {
+    const timestamp = Date.now().toString();
+    const random = Math.random().toString();
+    const data = `${remoteAddress}-${timestamp}-${random}`;
+    const hash = crypto.createHash('sha256').update(data).digest('hex');
+    return hash.substring(0, 8); // Use only 8 characters
+}
+
 // Creating the local server
 let server = net.createServer(socket =>
     {
-        const uuid = require('uuid').v4;
-        let id = uuid();
+        let remoteAddress = socket.remoteAddress || "unknown";
+        let id = generateId(remoteAddress);
         let connected = false;
         
         const player = new Player();
