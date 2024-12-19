@@ -92,7 +92,7 @@ let server = net.createServer(socket =>
 
                             function generateIncrementalRoomId(): string {
                                 roomIdCounter++;
-                                return `room-${roomIdCounter}`;
+                                return `R${roomIdCounter}`;
                             }
 
                             //const roomId = roomPlayers.map(player => player.id).join('-');
@@ -324,7 +324,7 @@ server.listen(PORT, () =>
             //const roomId = roomPlayers.map(player => player.id).join('-');
             function generateIncrementalRoomId(): string {
                 roomIdCounter++;
-                return `room-${roomIdCounter}`;
+                return `R${roomIdCounter}`;
             }
 
             let roomId = generateIncrementalRoomId();
