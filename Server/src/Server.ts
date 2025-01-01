@@ -61,7 +61,7 @@ let server = net.createServer((socket) => {
             console.log(`${socket.remoteAddress} is trying to connect...`); // Remote IP
             console.log(`Device connected with id: ${id}`); // Assigned ID
             timer.runAfter(1).then(() => {
-                socket.write(Buffer.from(`id: ${id}`, "utf8"));
+                socket.write(`id: ${id}`, "utf8");
                 player._id = id;
                 player.save(function (err: any) {
                     if (err) return handleError(err);
@@ -93,7 +93,7 @@ let server = net.createServer((socket) => {
                             playersPaired++;
 
                             if (playersPaired < USERS_PER_ROOM) {
-                                socket.write(Buffer.from(`{"command": "WAITING_PLAYER"}`, "utf-8"));
+                                socket.write(`{"command": "WAITING_PLAYER"}`, "utf8");
                             } else {
                                 let roomPlayers: IPlayer[] = [];
                                 searchRoom.forEach(player => {
@@ -114,7 +114,7 @@ let server = net.createServer((socket) => {
                                 const currentMsgRoom = rooms.get(roomId);
                                 if (currentMsgRoom)
                                     roomPlayers.forEach(player => {
-                                        player.conexion.write(Buffer.from(`{"command": "ROOM_CREATED", "roomId": "${roomId}"}`, "utf8"));
+                                        player.conexion.write(`{"command": "ROOM_CREATED", "roomId": "${roomId}"}`, "utf8");
                                         searchRoom.delete(player.id);
                                     });
 
@@ -203,7 +203,7 @@ let server = net.createServer((socket) => {
                                 players.forEach( (playerSocket) =>
                                 {
                                     if(playerSocket.id != jsonData.playerEditor)
-                                        playerSocket.conexion.write(Buffer.from(data.toString(), "utf-8"));
+                                        playerSocket.conexion.write(data.toString(), "utf8");
                                 });
                             }
                             catch(dataSaveError)
@@ -299,7 +299,7 @@ let server = net.createServer((socket) => {
         socket.on("close", () => {
             socket.end();
             players.forEach( (playerSocket) => {
-                playerSocket.conexion.write(Buffer.from(`{"command": "PLAYER_OFFLINE"}`, "utf-8"));
+                playerSocket.conexion.write(`{"command": "PLAYER_OFFLINE"}`, "utf8");
             });
             console.log(`Connection with ${socket.remoteAddress} : ${socket.remotePort} closed.`);
             playersOffline--;
@@ -345,7 +345,7 @@ server.listen(PORT, () =>
             rooms.set(roomId, room);
             
             roomPlayers.forEach( (player) => {
-                player.conexion.write(Buffer.from(`{"command": "ROOM_CREATED", "roomId": "${roomId}"}`, "utf-8"));
+                player.conexion.write(`{"command": "ROOM_CREATED", "roomId": "${roomId}"}`, "utf-8");
                 console.log(`Room creada con ID: "${roomId}"`);
                 searchRoom.delete(player.id);
             });
