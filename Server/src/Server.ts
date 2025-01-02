@@ -249,7 +249,7 @@ let server = net.createServer((socket) => {
                                 
                                 const currentMsgRoom = rooms.get(jsonData.roomId);
                                 if(currentMsgRoom)
-                                    currentMsgRoom.updateRoomStateOnEvent(jsonData, jsonData.playerCreator);
+                                    currentMsgRoom.updateRoomStateOnEvent(jsonData, jsonData._id);
                                 else
                                     console.log(`Room with ID ${jsonData.roomId} not found`);
                             }
