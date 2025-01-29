@@ -38,4 +38,6 @@ public class PlayerPose
 
         currentMovement = (int) Math.Sqrt( Math.Pow((int) position.x, 2) + Math.Pow((int) position.y, 2) + Math.Pow((int) position.z, 2) );
     }
+    
+    public string ToJson() { return JsonUtility.ToJson(this, true); }
 }

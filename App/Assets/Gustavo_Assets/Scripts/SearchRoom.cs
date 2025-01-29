@@ -13,4 +13,5 @@ public class SearchRoom
     public SearchRoom() { command = ""; _id = ""; }
     public void setCommand(string _command) { command = _command; }
     public void setPlayerID(string _playerID) { _id = _playerID; }
+    public string ToJson() { return JsonUtility.ToJson(this, true); }
 }

@@ -20,6 +20,7 @@ public class Events : MonoBehaviour
     public ConectionStatus conectionStatus;
     
     public string id = "";  // _id assigned by the server
+    public string roomId = ""; // roomId assigned by the server
     public bool readingFromServer = false;
     public bool writingToServer = false;
     public bool searchingRoom = false;
@@ -28,7 +29,9 @@ public class Events : MonoBehaviour
     public bool error = false;
     public bool updatingPlayerPose = false;
     public bool updatingObjectPose = false;
-    public bool targetIsFound = false;
+    public bool planeDetected = false;
+    public bool syncronized = false;
+    public bool drawing = false;
     
     public SearchRoom searchRoom = new SearchRoom();
     public PlayerPose playerPose = new PlayerPose();
@@ -63,7 +66,7 @@ public class Events : MonoBehaviour
         else
         {
             // Default data
-            networkBehaviour.IP = "192.168.100.77"; // Default local server IP address
+            networkBehaviour.IP = "192.168.0.125"; // Default local server IP address
             networkBehaviour.PORT = 8080; // Default local server PORT
         }
         
@@ -72,7 +75,8 @@ public class Events : MonoBehaviour
         conectionStatus.playerIsWaiting = true;
     }
 
-    public void changeTargetStatus() { targetIsFound = !targetIsFound; }
+    public void changePlaneStatus() { planeDetected = !planeDetected; }
+    public void setSync() { syncronized = !syncronized; }
 
     // Receive a command from server and do ...
     public void readAction(string JsonFromServer)
@@ -86,9 +90,11 @@ public class Events : MonoBehaviour
             searchingRoom = true;
             searchRoom.setCommand("SEARCH_ROOM");
             searchRoom.setPlayerID(id);
-            JSONPackage = JsonUtility.ToJson(searchRoom, true);
+            JSONPackage = searchRoom.ToJson() + "|";
+            //JSONPackage = JsonUtility.ToJson(searchRoom, true);
             Debug.Log("My Json sent: " + JSONPackage);
             sendRoomAction(JSONPackage);
+            JSONPackage = "{}";
         }
         else
         {
@@ -104,12 +110,19 @@ public class Events : MonoBehaviour
                 break;
 
                 case "ROOM_CREATED":
+                    roomId = JSONPackageReceived.getRoomID();
                     paired = true;
                     searchingPlayer = false;
                     searchingRoom = false;
                     conectionStatus.playerIsWaiting = false;
                     Debug.Log("Room created and players paired...");
                     //buttonManagerMod.MultiplayerGame();
+                break;
+
+                case "DRAWING":
+                    drawing = true;
+                    ARDrawManager.Instance.DeserializeAndAddAnchor(JsonFromServer);
+                    Debug.Log("Other player has drown...");
                 break;
 
                 case "UPDATE_PLAYER_POSE":
@@ -183,7 +196,7 @@ public class Events : MonoBehaviour
             }
             else
             {
-                if (paired && targetIsFound)
+                if (paired && planeDetected && syncronized)
                 {
                     UpdatePlayerPose();
                     UpdateEnvironment();
