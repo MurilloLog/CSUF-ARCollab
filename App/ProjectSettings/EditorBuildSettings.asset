@@ -5,14 +5,62 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Linker.unity
+  - enabled: 0
+    path: Assets/Arturo Assets/Scenes/Tuffy login.unity
+    guid: 9ce7267b6e843c44a9e0267f118a67ed
+  - enabled: 0
+    path: Assets/Arturo Assets/Scenes/Sign up.unity
+    guid: 99ffb0bd570cc9b4a9518e12a2d6cc4d
+  - enabled: 0
+    path: Assets/Arturo Assets/Scenes/Profile.unity
+    guid: ad20c1d55c7f4f945b46afcdd5ec2f86
+  - enabled: 0
+    path: Assets/Scenes/Login Page.unity
+    guid: 59c140ff2051d5946a6ce15f8a06df4f
+  - enabled: 0
+    path: Assets/Scenes/NewMenu.unity
+    guid: ae05b9ebe70c34c6088065bf14167e09
+  - enabled: 0
+    path: Assets/Scenes/EarthLayer.unity
+    guid: 52377dbc86294cc4e9e3620b2b51d0dc
+  - enabled: 0
+    path: Assets/Scenes/GameTest.unity
+    guid: 8acef45bd187cb04e8985891f3b712d4
+  - enabled: 0
+    path: Assets/Scenes/NewGameLayout.unity
+    guid: d1799726e54e538478b00551bc961cd1
+  - enabled: 0
+    path: Assets/Arturo Assets/Scenes/Lobby.unity
+    guid: 45faa05511d6a174a94988b6d6ad38a6
+  - enabled: 0
+    path: Assets/ExampleAssets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: Assets/Arturo Assets/Scenes/Earth Views/Earth Views.unity
+    guid: 2fcf9cc661b733e469a47f57cb33d1cb
+  - enabled: 0
+    path: Assets/Arturo Assets/Scenes/Earth Views/US Map.unity
+    guid: 5bfb86bea9c0dc7418fc273112e51e2e
+  - enabled: 0
+    path: Assets/Daniel_Scenes/caller_graph.unity
+    guid: e5a81ea0adb08441aaf70629493d63ef
+  - enabled: 0
+    path: Assets/Daniel_Scenes/graph1.unity
+    guid: c3f9267fb4af24f69918c3c5aea46505
+  - enabled: 0
+    path: Assets/Daniel_Scenes/randomTemp-animated.unity
+    guid: e54a34f0cf056c048b14a1c08b6b00df
+  - enabled: 0
+    path: Assets/Daniel_Scenes/treegraph2a.unity
+    guid: 1de60ee7ada1c419bbe69aa04a6ea682
+  - enabled: 0
+    path: Assets/Gustavo_Assets/Scenes/Linker.unity
     guid: 5d5819c702cd61340baa85b1f61af65c
-  - enabled: 1
-    path: Assets/Scenes/DeveloperLinker.unity
+  - enabled: 0
+    path: Assets/Gustavo_Assets/Scenes/DeveloperLinker.unity
     guid: f18fbb5c489ec6d429486f75d48dfa9e
   - enabled: 1
-    path: Assets/Scenes/StudyGroup.unity
+    path: Assets/Gustavo_Assets/Scenes/StudyGroup.unity
     guid: 73e325bac4030cb4ba279c89c17d67a2
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 89855e772135f0c4f8aa3e5b716aec4b,

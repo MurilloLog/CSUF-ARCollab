@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: GizmoLabs
-  productName: CSUF-ARCollab
+  companyName: MannyMakesThings
+  productName: AR App Test.2.1
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.1
+  bundleVersion: 0.2.1
   preloadedAssets:
   - {fileID: 0}
   - {fileID: 0}
@@ -151,8 +151,7 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 8a6864dd660db2040b19cc9e2f6e4087, type: 2}
+  - {fileID: 11400000, guid: e1ef5a8d76be3f049b363800b773f217, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -171,7 +170,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.GizmoLabs.CSUFARCollab
+    Android: com.MannyMakesThings.ARAppTest
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -720,7 +719,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    4: 
+    4: ARCORE_EXTENSIONS_IOS_SUPPORT;CLOUDANCHOR_IOS_SUPPORT
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -820,11 +819,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: edf0473c-44eb-4bb0-b3a5-a9e6dc9a7fb1
+  cloudProjectId: e8695a9e-b026-4d0f-a5d7-76152a023e28
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: CSUF-AR Collab
-  organizationId: gizmo-labs
+  projectName: repo_geo_ar
+  organizationId: vrrj
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   virtualTexturingSupportEnabled: 0

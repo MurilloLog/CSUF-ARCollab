@@ -66,7 +66,7 @@ public class Events : MonoBehaviour
         else
         {
             // Default data
-            networkBehaviour.IP = "192.168.0.125"; // Default local server IP address
+            networkBehaviour.IP = "192.168.0.127"; // Default local server IP address
             networkBehaviour.PORT = 8080; // Default local server PORT
         }
         
