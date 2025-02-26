@@ -80,6 +80,9 @@ let server = net.createServer((socket) => {
             let messages = buffer.split(delimiter);
             buffer = messages.pop() || "";
             
+            // T2: Timestamp en que se recibe el JSON
+            let T2 = Date.now();
+            
             for (let message of messages) {
                 try {
                     let jsonData = JSON.parse(message.trim());
@@ -247,6 +250,7 @@ let server = net.createServer((socket) => {
                                     //console.log(drawings);
                                 }*/
                                 
+                                jsonData.T2 = T2;
                                 const currentMsgRoom = rooms.get(jsonData.roomId);
                                 if(currentMsgRoom)
                                     currentMsgRoom.updateRoomStateOnEvent(jsonData, jsonData._id);

@@ -19,6 +19,9 @@ export class Room
      */
     public updateRoomStateOnEvent(data: any, playerIdWhoMadeUpdate: string): void {
         try {
+            // T3: Timestamp en el que el servidor esta por enviar el mensaje
+            data.T3 = Date.now();
+
             const message = JSON.stringify(data);
             const bufferMessage = message;
 
