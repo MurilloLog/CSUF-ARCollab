@@ -53,10 +53,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Daniel_Scenes/treegraph2a.unity
     guid: 1de60ee7ada1c419bbe69aa04a6ea682
-  - enabled: 0
+  - enabled: 1
     path: Assets/Gustavo_Assets/Scenes/Linker.unity
     guid: 5d5819c702cd61340baa85b1f61af65c
-  - enabled: 0
+  - enabled: 1
     path: Assets/Gustavo_Assets/Scenes/DeveloperLinker.unity
     guid: f18fbb5c489ec6d429486f75d48dfa9e
   - enabled: 1

@@ -42,6 +42,13 @@ public class Events : MonoBehaviour
     public string JSONPackage = "";
     public JsonData JSONPackageReceived = new JsonData();
 
+    //private NTPClient ntpClient;
+
+    void Start()
+    {
+        //ntpClient = new NTPClient();
+    }
+
     void Awake()
     {
         networkBehaviour = FindObjectOfType<Networking>();
@@ -81,6 +88,10 @@ public class Events : MonoBehaviour
     // Receive a command from server and do ...
     public void readAction(string JsonFromServer)
     {
+        // T4: Timestamp en el que se recibe un JSON desde el servidor
+        long T4 = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        //long T4 = ntpClient.GetNetworkTime();
+
         Debug.Log("The message from server is: " + JsonFromServer);
         if(JsonFromServer.StartsWith("id:"))
         {
@@ -121,7 +132,7 @@ public class Events : MonoBehaviour
 
                 case "DRAWING":
                     drawing = true;
-                    ARDrawManager.Instance.DeserializeAndAddAnchor(JsonFromServer);
+                    ARDrawManager.Instance.DeserializeAndAddAnchor(JsonFromServer, T4);
                     Debug.Log("Other player has drown...");
                 break;
 

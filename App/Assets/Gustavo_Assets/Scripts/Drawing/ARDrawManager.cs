@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.ARFoundation;
 using System.Linq;
+using System;
 
 [RequireComponent(typeof(ARAnchorManager))]
 public class ARDrawManager : Singleton<ARDrawManager>
@@ -42,6 +43,8 @@ public class ARDrawManager : Singleton<ARDrawManager>
 
     public Events backendEvents;
 
+    //private NTPClient ntpClient;
+
     void Awake()
     {
         backendEvents = FindObjectOfType<Events>();
@@ -50,6 +53,7 @@ public class ARDrawManager : Singleton<ARDrawManager>
     void Start()
     {
         // Calcular las dimensiones del area de dibujo basadas en el tamanio de la pantalla
+        //ntpClient = new NTPClient();
         UpdateDrawingArea();
     }
 
@@ -66,10 +70,11 @@ public class ARDrawManager : Singleton<ARDrawManager>
         Debug.Log($"Area de dibujo ajustada a: {drawingArea}");
     }
 
-    public void DeserializeAndAddAnchor(string json)
+    public void DeserializeAndAddAnchor(string json, long timestampT4)
     {
         // Deserializar el JSON recibido
         Drawing drawingData = JsonUtility.FromJson<Drawing>(json);
+        drawingData.SetTimestampT4(timestampT4);
 
         if (drawingData != null)
         {
@@ -114,6 +119,15 @@ public class ARDrawManager : Singleton<ARDrawManager>
         // Aniadir la linea al diccionario local
         //Lines.Add(Lines.Count, line);
         lineSettings.SelectColor(currentSelectedColor);
+
+        // Timestamp desde donde se considera que ha finalizado la replica de una instruccion
+        long T5 = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        drawingData.SetTimestampT5(T5);
+        //drawingData.SaveLatencyData();
+        //Debug.LogError("Mensaje replicado exitosamente a las: " + T5.ToString());
+        //Debug.LogError("La latencia del mensaje fue de: " + (drawingData.T1 - T5).ToString());
+
+        
         Debug.Log($"Anclaje y linea creados con exito desde los datos: {drawingData.anchorID}");
         backendEvents.drawing = false;
     }
@@ -200,9 +214,14 @@ public class ARDrawManager : Singleton<ARDrawManager>
             ARAnchor anchor = arAnchors[arAnchors.Count - 1]; // Suponiendo que el ultimo ancla es el asociado
 
             // Redondear los valores antes de serializar
-            Vector3 roundedAnchorPosition = RoundVector3(anchor.transform.position);
-            Quaternion roundedAnchorRotation = RoundQuaternion(anchor.transform.rotation);
+            Vector3 roundedAnchorPosition = anchor.transform.position;//RoundVector3(anchor.transform.position);
+            Quaternion roundedAnchorRotation = anchor.transform.rotation;//RoundQuaternion(anchor.transform.rotation);
             List<Vector3> roundedLinePoints = line.GetPoints().Select(RoundVector3).ToList();
+            int numberOfPoints = roundedLinePoints.Count;
+
+            // T1: Timestamp desde donde se considera que ha iniciado el proceso de envio de mensaje
+            long T1 = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            //Debug.LogError("Mensaje creado a las: " + unixTimestamp.ToString());
 
             // Crear la instancia de SerializedAnchorLine
             Drawing serializedData = new Drawing(
@@ -212,12 +231,14 @@ public class ARDrawManager : Singleton<ARDrawManager>
                 roundedAnchorPosition,
                 roundedAnchorRotation,
                 roundedLinePoints,
-                line.GetCurrentColor() // Modificar con la obtencion del color actual
+                line.GetCurrentColor(), // Modificar con la obtencion del color actual
+                T1,
+                numberOfPoints
             );
 
             // Convertir a JSON
             string json = JsonUtility.ToJson(serializedData, false) + "|";
-            Debug.Log($"JSON a enviar: {json}");
+            //Debug.Log($"JSON a enviar: {json}");
 
             if (string.IsNullOrEmpty(json))
             {
@@ -232,8 +253,8 @@ public class ARDrawManager : Singleton<ARDrawManager>
                 }
                 else
                 {
-                    Debug.Log($"Tamanio del json: {json.Length}");
-                    Debug.Log($"Serialized JSON for anchors and lines: {json}");
+                    //Debug.Log($"Tamanio del json: {json.Length}");
+                    //Debug.Log($"Serialized JSON for anchors and lines: {json}");
 
                     // Enviar al servidor
                     backendEvents.sendRoomAction(json);
