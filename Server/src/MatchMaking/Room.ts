@@ -19,7 +19,7 @@ export class Room
      */
     public updateRoomStateOnEvent(data: any, playerIdWhoMadeUpdate: string): void {
         try {
-            // T3: Timestamp en el que el servidor esta por enviar el mensaje
+            // Timestamp T3: the server is about to send the message to the client
             data.T3 = Date.now();
 
             const message = JSON.stringify(data);
@@ -38,6 +38,36 @@ export class Room
                         console.error(`Error sending data to player ${player.id}:`, writeError);
                     }
                 }
+            });
+        } catch (serializationError) {
+            console.error("Error serializing data for updateRoomStateOnEvent:", serializationError);
+        }
+    }
+
+    /**
+     * Updates the state of the room when an event is triggered. It's used for testing purposes.
+     * Sends data to all players including the one who triggered the update.
+     * @param data - Data to send to other players.
+     * @param playerIdWhoMadeUpdate - ID of the player who triggered the update.
+     */
+    public updateRoomStateOnEventTester(data: any, playerIdWhoMadeUpdate: string): void {
+        try {
+            // Timestamp T3: the server is about to send the message to the client
+            data.T3 = Date.now();
+
+            const message = JSON.stringify(data);
+            const bufferMessage = message;
+
+            this.players.forEach(player => {
+                try {
+                        if (player.conexion && !player.conexion.destroyed) {
+                            player.conexion.write(bufferMessage, "utf8");
+                        } else {
+                            console.log(`Player connection ${player.id} is invalid or destroyed.`);
+                        }
+                    } catch (writeError) {
+                        console.error(`Error sending data to player ${player.id}:`, writeError);
+                    }
             });
         } catch (serializationError) {
             console.error("Error serializing data for updateRoomStateOnEvent:", serializationError);
@@ -78,56 +108,3 @@ export class Room
         }
     }
 }
-
-/* Previous code
-interface RoomConfig
-{
-    mode: "1VS1" | "2VS2";
-}
-
-function isOneVsOne(
-    players: { player1: IPlayer; player2: IPlayer} | Map<String, IPlayer>): players is 
-    {
-        player1: IPlayer;
-        player2: IPlayer
-    }
-    {
-        return <Map<String, IPlayer>>players == undefined;
-    }
-
-class Room
-{
-    private config: RoomConfig;
-    private player1: IPlayer | null = null;
-    private player2: IPlayer | null = null;
-    private players: Map<String, IPlayer> | null = null;
-
-    /**** Constructor for mode OneVsOne **** /
-    constructor(type: {player1:IPlayer; player2:IPlayer});
-
-    /**** Constructor for mode TwoVsTwo **** /
-    constructor(type: Map<String, IPlayer>);
-
-    constructor(type: |{ player1: IPlayer; player2: IPlayer;} | Map<String, IPlayer>)
-    {
-        if(isOneVsOne(type))
-        {
-            this.config = {mode: "1VS1"};
-            this.player1 = type.player1;
-            this.player2 = type.player2;
-        }
-        else
-        {
-            this.config = {mode: "2VS2"};
-            this.players = type;
-        }
-    }
-}
-
-export class OneVsOne extends Room
-{
-    constructor(player1: IPlayer, player2: IPlayer)
-    {
-        super({player1: player1, player2: player2})
-    }
-}*/

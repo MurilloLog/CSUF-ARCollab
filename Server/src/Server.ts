@@ -80,7 +80,8 @@ let server = net.createServer((socket) => {
             let messages = buffer.split(delimiter);
             buffer = messages.pop() || "";
             
-            // T2: Timestamp en que se recibe el JSON
+            // Timestamp T2 is used to measure the time it takes to process the data
+            // and send it to the players in the room.
             let T2 = Date.now();
             
             for (let message of messages) {
@@ -109,7 +110,6 @@ let server = net.createServer((socket) => {
                                     return `R${roomIdCounter}`;
                                 }
 
-                                //const roomId = roomPlayers.map(player => player.id).join('-');
                                 const roomId = generateIncrementalRoomId();
                                 const playerInRoom = new Room(roomId, roomPlayers);
                                 rooms.set(roomId, playerInRoom);
@@ -121,7 +121,7 @@ let server = net.createServer((socket) => {
                                         searchRoom.delete(player.id);
                                     });
 
-                                console.log(`Room creada con ID: "${roomId}"`);
+                                console.log(`Room created with ID: "${roomId}"`);
 
                                 playersPaired = 0;
                                 playersOffline += USERS_PER_ROOM;
@@ -167,7 +167,6 @@ let server = net.createServer((socket) => {
                         case actions.UPDATE_OBJECT_POSE:
                             try
                             {
-                                //const object = new objectModel();
                                 const objects = await Objects.find({_id: jsonData._id}, {_id: 1})
                                 if(objects.length != 0)
                                 {
@@ -219,41 +218,11 @@ let server = net.createServer((socket) => {
                         case actions.DRAWING:
                             try
                             {
-                                /*const drawings = await Drawings.find({_id: jsonData._id}, {_id: 1})
-                                if(drawings.length != 0)
-                                {
-                                    console.log("The ID exist in DB");
-                                    const drawings = await Drawings.findByIdAndUpdate(jsonData._id, 
-                                    {
-                                        playerCreator: jsonData.playerCreator,
-                                        position: jsonData.position,
-                                        rotation: jsonData.rotation,
-                                        materialOption: jsonData.materialOption
-                                    },
-                                    {new: true});
-                                    console.log("Drawing updated");
-                                    //console.log(drawings);
-                                }
-                                else
-                                {
-                                    console.log("The ID doesn't exist");
-                                    const drawings = new Drawings(
-                                    {
-                                        _id: jsonData._id,
-                                        playerCreator: jsonData.playerCreator,
-                                        position     : jsonData.position,
-                                        rotation     : jsonData.rotation,
-                                        materialOption: jsonData.materialOption
-                                    });
-                                    await drawings.save();
-                                    console.log("Drawing saved");
-                                    //console.log(drawings);
-                                }*/
-                                
                                 jsonData.T2 = T2;
                                 const currentMsgRoom = rooms.get(jsonData.roomId);
                                 if(currentMsgRoom)
                                     currentMsgRoom.updateRoomStateOnEvent(jsonData, jsonData._id);
+                                    //currentMsgRoom.updateRoomStateOnEventTester(jsonData, jsonData._id);
                                 else
                                     console.log(`Room with ID ${jsonData.roomId} not found`);
                             }
@@ -338,7 +307,6 @@ server.listen(PORT, () =>
                     return;
             });
             
-            //const roomId = roomPlayers.map(player => player.id).join('-');
             function generateIncrementalRoomId(): string {
                 roomIdCounter++;
                 return `R${roomIdCounter}`;
@@ -350,7 +318,7 @@ server.listen(PORT, () =>
             
             roomPlayers.forEach( (player) => {
                 player.conexion.write(`{"command": "ROOM_CREATED", "roomId": "${roomId}"}`, "utf-8");
-                console.log(`Room creada con ID: "${roomId}"`);
+                console.log(`Room created with ID: "${roomId}"`);
                 searchRoom.delete(player.id);
             });
         }
