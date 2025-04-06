@@ -1,7 +1,13 @@
-# CSUF-ARCollab
+# CSUF-ARCollab: A Framework for Collaborative Augmented Reality Applications | I3D 2025
+
+<div style="text-align: center;">
+  <img src="./Assets/Fig_teaser.png" alt="Figure description" />
+  <p>Figure: The result of the functionality test on a simple co-located collaborative AR drawing experience over two users' mobile devices using our framework. To establish collaboration, both devices start from the same initial reference point and perform an environmental scan, as illustrated in (1). After each device locally generates spatial anchors using ARCore, the spatial drawing functionality is enabled, as shown in (2).</p>
+</div>
+
+## Overview
 This repository outlines the design, development, and implementation of a local server tailored to collaborative augmented reality (AR) applications. It introduces a synchronous remote communication model that enables real-time interaction among multiple users, serving as a foundation for developing collaborative experiences in AR environments. The project is organized into two main sections: the first covers the architecture and technical configuration of the local server (_Server folder_), describing the components and processes required to ensure its functionality; the second focuses on the design (_App folder_), evaluation, and validation of the application, identifying issues encountered during development, analyzing potential solutions, and proposing improvements for future iterations.
 
-## Requirements
 The following are the necessary requirements for the implementation and operation of the project. These are divided into two main categories: Server and Application.
 
 ### Server
@@ -18,4 +24,4 @@ See [APP.md](./App/APP.md) for instructions on how to setting up the App from so
 - **ARCore**. Platform used for building augmented reality experiences on Android devices.
 - **.NET**. Platform used for message control between the server and the mobile application.
 
-Don't worry, in each section you will be guided to install each requirement listed above.
+
