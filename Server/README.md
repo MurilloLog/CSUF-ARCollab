@@ -6,9 +6,10 @@
 - Visual Studio Code (recommended) or any code editor
 
 ## NodeJS Setup
-1. Verify installation by running:
+1. Open Terminal, verify installation by running:
 ```bash
-node --version && npm --version
+node --version
+npm --version
 ```
 ### Install required modules:
 ```bash
